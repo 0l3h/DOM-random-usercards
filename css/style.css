@@ -1,0 +1,60 @@
+:root {
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+header {
+  height: 80px;
+  background-color: rgb(0, 119, 255);
+  color: white;
+  font-size: xx-large;
+}
+
+.userList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  align-content: space-between;
+  width: 90%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.userListItem {
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+  border: none;
+  box-shadow: 0px 0px 10px;
+  border-radius: 5px;
+  text-align: center;
+  height: 400px;
+}
+
+.userListItem > * {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.frame > img {
+  width: inherit;
+}
+
+.userFullName {
+  margin: 15px;
+  font-size: large;
+}
+
+.frame {
+  margin-top: 20px;
+  border-radius: 50%;
+  margin-right: auto;
+  margin-left: auto;
+  height: 120px;
+  width: 120px;
+  overflow: hidden;
+}
+
+.gender {
+  margin: 0px;
+  font-size: xx-large;
+}
