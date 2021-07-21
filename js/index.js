@@ -7,7 +7,6 @@ const options = {
 };
 
 loadUsers(options);
-// loadBackgroundImage();
 
 /** Method loads users' data using Random User API.
  * 
@@ -23,7 +22,7 @@ function loadUsers({ results, seed, page }) {
   .then(({ results }) => renderUsers(results));
 }               
 
-/**
+/** Method renders list of users.
  * 
  * @param {Object} users 
  */

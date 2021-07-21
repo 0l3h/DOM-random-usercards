@@ -1,57 +1,71 @@
-'use strict'
+'use strict';
 
+// List of users' names in header of the page
+const names = [];
+const p = document.createElement('p');
+const users = document.querySelector('header');
+users.append(p);
+
+/** Method creates a card with user's info in it.
+ *  
+ * @param {String} firstName     
+ * @param {String} lastName         
+ * @param {String} userImageSrc     
+ * @param {String} email            
+ * @param {String} gender
+ * @param {Number} age          
+ * @returns 
+ */
 function createUserListItem({
     name: { first: firstName, last: lastName },
     picture: { large: userImageSrc },
     email, 
-    age, 
-    gender
+    gender,
+    dob: {age}
 }) {
     const userListItem = document.createElement('li');
     userListItem.classList.add('userListItem');
-    
-    // Frame for user's profile picture
-    const imageFrame = document.createElement('div');
-    imageFrame.classList.add('frame');
-    imageFrame.append(createUserImage(userImageSrc));
 
     // Card structure
     userListItem.append(
-        imageFrame,
+        createUserImage(userImageSrc),
         createUserFullName(firstName, lastName),
         createUserAge(age),
         createUserGender(gender),
         createEmail(email),
     );
-
-    userListItem.onclick = (event) => {
-        userListItem.style.boxShadow = '0px 0px 10px rgb(255, 36, 116)'
-    }
-
+    
+    addCardEvents(userListItem, gender, firstName, lastName);
+    
     return userListItem;
 }
 
-//#region Methods
+//#region Card methods, events.
+function addCardEvents(userListItem, gender, firstName, lastName) {
+    userListItem.addEventListener('click', (() => {
+        userListItem.style.boxShadow = '0px 0px 5px';
+        userListItem.style.backgroundColor = gender === 'male'? '#80ffff' : '#ffb3e6';
+
+        // Add user name to user name list
+        names.push(`${firstName} ${lastName}`);
+        p.innerText = names.join(', ');
+    }), {once: true});
+
+    userListItem.onmouseenter = (event) => {
+        userListItem.style.boxShadow = gender === 'male'? '0px 0px 10px #33ccff' : '0px 0px 10px #cc00cc'
+    }
+
+    userListItem.onmouseleave = (event) => {
+        userListItem.style.boxShadow = '0px 0px 5px';
+    }
+}
+
 function createUserImage(userImageSrc) {
     const img = new Image();
     img.src = userImageSrc;
     img.alt = 'user profile image';
     
     return img;
-}
-
-function createBackgroundImage() {
-    const backgroundImage = document.createElement('img');
-    backgroundImage.src = 'https://picsum.photos/200/300';
-    return backgroundImage;
-}
-
-function createUserImageFrame(gender) {
-    const imageFrame = document.createElement('div');
-    imageFrame.classList.add('frame');
-    imageFrame.style.borderColor = gender === 'male'? '5px solid rgb(0, 217, 255)' : '5px solid rgb(255, 0, 157)';
-
-    return imageFrame;
 }
 
 function createUserAge(age) {
@@ -61,10 +75,10 @@ function createUserAge(age) {
 }
 
 function createUserFullName(firstName, lastName) {
-    const h1 = document.createElement('h1');
-    h1.classList.add('userFullName');
-    h1.innerText = `${firstName} ${lastName}`;
-    return h1;
+    const h2 = document.createElement('h2');
+    h2.classList.add('userFullName');
+    h2.innerText = `${firstName} ${lastName}`;
+    return h2;
 }
 
 function createEmail(email) {
